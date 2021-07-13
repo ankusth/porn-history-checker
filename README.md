@@ -1,2 +1,2 @@
 # Porn history checker
-Your cache can be abused to detect whether you visited porn.
+Your cache can be abused to sneak into your browser history.
