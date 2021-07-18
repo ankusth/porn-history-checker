@@ -14,17 +14,6 @@ h1{
 	font-size: 3rem;
 }
 
-.footer {
-  position: relative;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  top: 150px;
-  padding: 1rem;
-  background-color: #efefef;
-  text-align: center;
-  font-size: 13px;
-}
 
 body {
   background: hsl(0, 0%, 100%);
