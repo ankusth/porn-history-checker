@@ -1,40 +1,37 @@
-const cache = {};
+// Get the check button and result div
+const checkBtn = document.getElementById("check-btn");
+const resultDiv = document.getElementById("result");
 
-function checkHistory(url) {
-  if (cache[url]) {
-    return Promise.resolve(cache[url]);
-  }
-  
-  return fetch(url)
-    .then(response => {
-      if (response.ok) {
-        cache[url] = true;
-      } else {
-        cache[url] = false;
-      }
-      return cache[url];
-    })
-    .catch(error => {
-      console.error(error);
-      cache[url] = false;
-      return false;
-    });
+// Check if the website has been visited before
+const isVisited = localStorage.getItem("visited");
+
+if (isVisited) {
+  // If the website has been visited before, set the background color to red and white and display "Busted!" text
+  document.body.style.background = "linear-gradient(45deg, #ff0000, #ffffff)";
+  resultDiv.textContent = "Busted!";
 }
 
-const form = document.querySelector('form');
-const historyList = document.querySelector('.history-list');
-const bustedText = document.querySelector('.busted');
+// Add a click event listener to the check button
+checkBtn.addEventListener("click", () => {
+  const urlInput = document.getElementById("url");
+  const url = urlInput.value;
 
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const url = document.querySelector('#input-url').value;
-  checkHistory(url)
-    .then(result => {
-      const historyItem = document.createElement('li');
-      historyItem.classList.add('history-item');
-      historyItem.textContent = `${url} - ${result ? 'Exists' : 'Does not exist'}`;
-     
-
-      historyList.appendChild(historyItem);
+  // Check if the website exists by sending a HEAD request
+  fetch(url, { method: "HEAD" })
+    .then(response => {
+      if (response.ok) {
+        // If the website exists, set the background color to red and white and display "Busted!" text
+        document.body.style.background = "linear-gradient(45deg, #ff0000, #ffffff)";
+        resultDiv.textContent = "Busted!";
+        // Store the visited status in local storage
+        localStorage.setItem("visited", true);
+      } else {
+        // If the website does not exist, display an error message
+        resultDiv.textContent = "Website does not exist";
+      }
+    })
+    .catch(error => {
+      // If there is an error, display an error message
+      resultDiv.textContent = "An error occurred while checking the website";
     });
 });
