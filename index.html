@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Website Cache Checker</title>
+	<title>PHC</title>
 	<style>
 		body {
 			background-color: black;
@@ -16,6 +16,32 @@
 		h1 {
 			font-size: 48px;
 			margin-top: 100px;
+		}
+
+		form {
+			margin-top: 50px;
+		}
+
+		input[type="url"] {
+			font-size: 24px;
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			background-color: #333;
+			color: white;
+			margin-right: 10px;
+			width: 400px;
+			max-width: 100%;
+		}
+
+		input[type="submit"] {
+			font-size: 24px;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			background-color: red;
+			color: white;
+			cursor: pointer;
 		}
 
 		.disco {
@@ -41,16 +67,31 @@
 	</style>
 </head>
 <body>
-	<h1>Website Cache Checker</h1>
+	<h1>Porn History Checker</h1>
+	<form id="cache-form">
+		<label for="website-url">Enter website URL:</label>
+		<input type="url" id="website-url" name="website-url" placeholder="https://www.example.com" required>
+		<input type="submit" value="Check">
+	</form>
 	<p id="cache-result"></p>
 
 	<script>
-		// Check if website cache exists
-		if (window.applicationCache) {
-			document.body.classList.add('disco');
-			document.getElementById('cache-result').textContent = 'BUSTED!';
-		} else {
-			document.getElementById('cache-result').textContent = 'does not exist.';
+		const form = document.getElementById('cache-form');
+		const result = document.getElementById('cache-result');
+
+		form.addEventListener('submit', function(event) {
+			event.preventDefault();
+			const url = document.getElementById('website-url').value;
+			checkCache(url);
+		});
+
+		function checkCache(url) {
+			if (window.applicationCache) {
+				document.body.classList.add('disco');
+				result.textContent = `BUSTED!`;
+			} else {
+				result.textContent = `does not exist for ${url}.`;
+			}
 		}
 	</script>
 </body>
