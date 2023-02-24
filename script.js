@@ -23,6 +23,7 @@ function checkHistory(url) {
 
 const form = document.querySelector('form');
 const historyList = document.querySelector('.history-list');
+const bustedText = document.querySelector('.busted');
 
 form.addEventListener('submit', event => {
   event.preventDefault();
@@ -32,6 +33,8 @@ form.addEventListener('submit', event => {
       const historyItem = document.createElement('li');
       historyItem.classList.add('history-item');
       historyItem.textContent = `${url} - ${result ? 'Exists' : 'Does not exist'}`;
+     
+
       historyList.appendChild(historyItem);
     });
 });
